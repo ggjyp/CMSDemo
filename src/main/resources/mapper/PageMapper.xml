@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyp.CMSDemo.dao.PageDao">
+    <select id="getById" resultType="Page" parameterType="int">
+        <!-- 具体的sql -->
+        SELECT * FROM page WHERE id = #{id}
+    </select>
+
+    <select id="getByVersionId" resultType="Page">
+        SELECT * FROM cms.page WHERE version_id = #{versionId}
+    </select>
+
+    <select id="getByVersionName" resultType="Page" parameterType="String">
+        SELECT * FROM page WHERE version_name = #{versionName}
+    </select>
+
+    <update id="updatePage" parameterType="Page">
+        UPDATE page SET version_name = #{versionName}, head_code = #{headCode}, body_code = #{bodyCode}
+        WHERE version_id = #{versionId}
+    </update>
+
+    <insert id="savePage" parameterType="Page">
+        INSERT INTO page (version_id, version_name, head_code, body_code)
+        VALUES (#{versionId}, #{versionName}, #{headCode}, #{bodyCode})
+    </insert>
+
+    <select id="getPageByPageUtil" resultType="Page">
+        SELECT * FROM page limit #{pageNumber},#{pageSize}
+    </select>
+
+    <select id="countAllPage" resultType="int">
+        SELECT COUNT(*) FROM  page
+    </select>
+
+</mapper>

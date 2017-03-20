@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyp.CMSDemo.dao.MenuDao">
+
+    <select id="getBySign" resultType="Menu">
+        SELECT * FROM menu WHERE menu_sign = #{menuSign}
+    </select>
+
+    <select id="getByName" resultType="Menu">
+        SELECT * FROM menu WHERE menu_name = #{menuName}
+    </select>
+
+    <insert id="saveMenu" parameterType="Menu">
+        INSERT INTO menu (menu_name, dir, parent, last_dir)
+        VALUES (#{menuName}, #{dir},#{parent}, #{lastDir})
+    </insert>
+
+    <select id="listAllMenu" resultType="Menu">
+        SELECT * FROM menu
+    </select>
+
+    <select id="listByParent" resultType="Menu">
+        SELECT * FROM menu where parent = #{parent};
+    </select>
+
+    <select id="getParentByPath" resultType="String">
+        SELECT parent FROM menu where dir LIKE CONCAT('%',#{path} ) ;
+    </select>
+
+    <select id="getParent" resultType="Menu">
+        SELECT * FROM menu where last_dir = #{parent}
+    </select>
+
+
+</mapper>
